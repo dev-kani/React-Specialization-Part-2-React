@@ -3,6 +3,7 @@ import moment from 'moment'
 import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem, Modal, ModalHeader, ModalBody, Label, Button, Row, Col } from "reactstrap"
 import { Control, LocalForm, Errors } from 'react-redux-form'
 import { Link } from 'react-router-dom'
+import { Loading } from './LoadingComponent'
 
 // ------- CommentForm Component with Model and Comments Field ------- //
 const required = (val) => val && val.length;
@@ -138,9 +139,26 @@ function RenderDish({ dish, }) {
 }
 
 
-const DishDetail = ({ dish, comments, addComment }) => {
-
-  if (dish != null)
+const DishDetail = ({ dish, comments, addComment, isLoading, errMess }) => {
+  if (isLoading) {
+    return (
+      <div className="container">
+        <div className="row">
+          <Loading />
+        </div>
+      </div>
+    )
+  }
+  else if (errMess) {
+    return (
+      <div className="container">
+        <div className="row">
+          <h4>{errMess}</h4>
+        </div>
+      </div>
+    )
+  }
+  else if (dish != null)
     return (
       <div className="container">
         <div className="row">
