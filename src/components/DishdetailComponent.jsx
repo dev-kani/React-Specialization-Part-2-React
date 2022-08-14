@@ -27,8 +27,9 @@ class CommentForm extends Component {
   }
 
   handleSubmit(values) {
-    console.log('Current State is: ' + JSON.stringify(values))
-    alert('Current State is: ' + JSON.stringify(values))
+    // console.log('Current State is: ' + JSON.stringify(values))
+    // alert('Current State is: ' + JSON.stringify(values))
+    this.props.addComment(this.props.dishId, values.rating, values.author, values.comment)
   }
 
   render() {
@@ -108,13 +109,14 @@ class CommentForm extends Component {
                 return (
                   <li key={comment.id}>
                     <p>{comment.comment}</p>
-                    <p>-- {comment.author}, ${moment(comment.date).format('MMM d, YYYY')}</p>
+                    <p>-- {comment.author} {`${moment(comment.date).format('MMM D, YYYY')}`}</p>
                   </li>
                 )
               })}
             </ul>
             <button className="comment_btn" onClick={this.toggleCommentModal}>
-              <span className="fa fa-pencil" aria-hidden="true"></span> Submit Comment</button >
+              <span className="fa fa-pencil" aria-hidden="true"></span> Submit Comment
+            </button >
           </div>}
       </>
     )
@@ -136,7 +138,7 @@ function RenderDish({ dish, }) {
 }
 
 
-const DishDetail = ({ dish, comments }) => {
+const DishDetail = ({ dish, comments, addComment }) => {
 
   if (dish != null)
     return (
@@ -156,11 +158,15 @@ const DishDetail = ({ dish, comments }) => {
             <RenderDish dish={dish} />
           </div>
           <div className="col-12 col-md-5 m-1">
-            <CommentForm comments={comments} />
+            <CommentForm
+              comments={comments}
+              addComment={addComment}
+              dishId={dish.id}
+            />
           </div>
         </div>
       </div>
-    );
+    )
   else return (
     <div></div>
   )
