@@ -1,8 +1,8 @@
-import React from 'react';
-import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import React from 'react'
+import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap'
+import { Link } from 'react-router-dom'
+import { FadeTransform, Fade, Stagger } from 'react-animation-components'
 
-// Task 2 & 3
 const RenderLeader = ({ leader }) => {
   return (
     <div key={leader.id} className="col-12 mt-5">
@@ -20,11 +20,14 @@ const RenderLeader = ({ leader }) => {
   );
 }
 
-// Task 2 & 3
 const About = ({ leadersList }) => {
   const leaders = leadersList && leadersList.map((leader) => {
     return (
-      <RenderLeader key={leader.id} leader={leader} />
+      <Stagger in>
+        <Fade in>
+          <RenderLeader key={leader.id} leader={leader} />
+        </Fade>
+      </Stagger>
     );
   });
 

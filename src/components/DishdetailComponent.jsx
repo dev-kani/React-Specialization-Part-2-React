@@ -31,7 +31,7 @@ class CommentForm extends Component {
   handleSubmit(values) {
     // console.log('Current State is: ' + JSON.stringify(values))
     // alert('Current State is: ' + JSON.stringify(values))
-    this.props.addComment(this.props.dishId, values.rating, values.author, values.comment)
+    this.props.postComment(this.props.dishId, values.rating, values.author, values.comment)
   }
 
   render() {
@@ -58,7 +58,6 @@ class CommentForm extends Component {
                 </Col>
               </Row>
               <Row className='form-group'>
-
                 <Col md={12}>
                   <Label htmlFor="yourname" >Your Name</Label>
                   <Control.text
@@ -125,7 +124,7 @@ class CommentForm extends Component {
   }
 }
 
-function RenderDish({ dish, }) {
+function RenderDish({ dish }) {
   return (
     <div>
       <Card>
@@ -140,7 +139,7 @@ function RenderDish({ dish, }) {
 }
 
 
-const DishDetail = ({ dish, comments, addComment, isLoading, errMess }) => {
+const DishDetail = ({ dish, comments, postComment, isLoading, errMess }) => {
   if (isLoading) {
     return (
       <div className="container">
@@ -179,7 +178,7 @@ const DishDetail = ({ dish, comments, addComment, isLoading, errMess }) => {
           <div className="col-12 col-md-5 m-1">
             <CommentForm
               comments={comments}
-              addComment={addComment}
+              postComment={postComment}
               dishId={dish.id}
             />
           </div>
